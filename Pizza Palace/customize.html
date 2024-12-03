@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customize Pizza - Pizza Palace</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Pizza Palace</h1>
+            <p>Customize your perfect pizza!</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="customize">
+            <h2>Customize Your Pizza</h2>
+            <form id="customize-form">
+                <div class="form-group">
+                    <label for="cheese">Cheese Options:</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="cheeseMozzarella" value="Mozzarella">
+                        <label for="cheeseMozzarella">Mozzarella</label>
+                        <input type="checkbox" id="cheeseCheddar" value="Cheddar">
+                        <label for="cheeseCheddar">Cheddar</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="meats">Meat Options:</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="meatPepperoni" value="Pepperoni">
+                        <label for="meatPepperoni">Pepperoni</label>
+                        <input type="checkbox" id="meatSausage" value="Sausage">
+                        <label for="meatSausage">Sausage</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="sauces">Sauce Options:</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="sauceTomato" value="Tomato Sauce">
+                        <label for="sauceTomato">Tomato Sauce</label>
+                        <input type="checkbox" id="saucePesto" value="Pesto Sauce">
+                        <label for="saucePesto">Pesto Sauce</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="toppings">Topping Options:</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="toppingOlives" value="Olives">
+                        <label for="toppingOlives">Olives</label>
+                        <input type="checkbox" id="toppingMushrooms" value="Mushrooms">
+                        <label for="toppingMushrooms">Mushrooms</label>
+                    </div>
+                </div>
+
+                <button type="button" class="btn-primary" onclick="addCustomizedPizzaToCart()">Add to Cart</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Pizza Palace. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Function to add customized pizza to the cart
+        function addCustomizedPizzaToCart() {
+            const cheeseOptions = [];
+            const meatOptions = [];
+            const sauceOptions = [];
+            const toppingOptions = [];
+
+            // Collect selected options
+            if (document.getElementById('cheeseMozzarella').checked) cheeseOptions.push('Mozzarella');
+            if (document.getElementById('cheeseCheddar').checked) cheeseOptions.push('Cheddar');
+            if (document.getElementById('meatPepperoni').checked) meatOptions.push('Pepperoni');
+            if (document.getElementById('meatSausage').checked) meatOptions.push('Sausage');
+            if (document.getElementById('sauceTomato').checked) sauceOptions.push('Tomato Sauce');
+            if (document.getElementById('saucePesto').checked) sauceOptions.push('Pesto Sauce');
+            if (document.getElementById('toppingOlives').checked) toppingOptions.push('Olives');
+            if (document.getElementById('toppingMushrooms').checked) toppingOptions.push('Mushrooms');
+
+            // Create a customized pizza name and price (fixed for this example)
+            const pizzaName = "Custom Pizza";
+            const price = 12.99; // You can adjust this based on your toppings or base price
+
+            // Construct customization details
+            const customizationDetails = `
+                Cheese: ${cheeseOptions.join(', ')} 
+                Meat: ${meatOptions.join(', ')} 
+                Sauce: ${sauceOptions.join(', ')} 
+                Toppings: ${toppingOptions.join(', ')}
+            `;
+
+            // Add customized pizza to the cart
+            addToCart(pizzaName, price, customizationDetails);
+        }
+
+        // Function to add pizza to the cart (from menu or customization)
+        function addToCart(pizzaName, price, customizationDetails = "") {
+            const pizza = {
+                name: pizzaName,
+                price: price,
+                customizationDetails: customizationDetails
+            };
+
+            // Add to cart array
+            let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.push(pizza);
+
+            // Update the cart in localStorage
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            // Redirect to cart page
+            window.location.href = 'cart.html';
+        }
+
+    </script>
+</body>
+</html>

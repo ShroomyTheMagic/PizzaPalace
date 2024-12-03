@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza Menu - Pizza Palace</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Pizza Palace</h1>
+            <p>Your favorite pizza, made to order!</p>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="customize.html">Customize Pizza</a></li>
+                <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="menu">
+            <h2>Our Pizzas</h2>
+            <div class="menu-items">
+                <!-- Cheese Pizza -->
+                <div class="menu-item">
+                    <img src="images/cheese.jpg" alt="Cheese Pizza">
+                    <h3>Cheese Pizza</h3>
+                    <p>Classic pizza with mozzarella cheese and tomato sauce.</p>
+                    <p><strong>Price: $8.99</strong></p>
+                    <button class="order-btn" onclick="addToCart('Cheese Pizza', 8.99)">Add to Cart</button>
+                </div>
+
+                <!-- Hawaiian Pizza -->
+                <div class="menu-item">
+                    <img src="images/hawaiian.jpg" alt="Hawaiian Pizza">
+                    <h3>Hawaiian Pizza</h3>
+                    <p>Pizza with pineapple and ham, topped with mozzarella cheese.</p>
+                    <p><strong>Price: $9.99</strong></p>
+                    <button class="order-btn" onclick="addToCart('Hawaiian Pizza', 9.99)">Add to Cart</button>
+                </div>
+
+                <!-- Pepperoni Pizza -->
+                <div class="menu-item">
+                    <img src="images/pepperoni.jpg" alt="Pepperoni Pizza">
+                    <h3>Pepperoni Pizza</h3>
+                    <p>Classic pizza topped with pepperoni slices and mozzarella cheese.</p>
+                    <p><strong>Price: $10.99</strong></p>
+                    <button class="order-btn" onclick="addToCart('Pepperoni Pizza', 10.99)">Add to Cart</button>
+                </div>
+
+                <!-- Veggie Pizza -->
+                <div class="menu-item">
+                    <img src="images/veggie.jpg" alt="Veggie Pizza">
+                    <h3>Veggie Pizza</h3>
+                    <p>Loaded with fresh veggies and mozzarella cheese.</p>
+                    <p><strong>Price: $9.99</strong></p>
+                    <button class="order-btn" onclick="addToCart('Veggie Pizza', 9.99)">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Pizza Palace. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Initialize cart items from localStorage (persist data across pages)
+        let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+        // Function to update the cart count in the header
+        function updateCartCount() {
+            document.getElementById('cart-count').textContent = cartItems.length;
+        }
+
+        // Function to add pizza to the cart
+        function addToCart(pizzaName, price, customizationDetails = "") {
+            const pizza = {
+                name: pizzaName,
+                price: price,
+                customizationDetails: customizationDetails // This will be used if it's a customized pizza
+            };
+
+            // Add to cart array
+            cartItems.push(pizza);
+
+            // Update the cart in localStorage
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            // Update cart count in the header
+            updateCartCount();
+        }
+
+        // Call the function to update the cart count on page load
+        updateCartCount();
+    </script>
+</body>
+</html>
